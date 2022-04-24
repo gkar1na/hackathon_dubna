@@ -12,13 +12,6 @@ class Settings(BaseSettings):
     TG_TOKEN: Optional[str]
     ADMINS: list = []
 
-    WEBAPP_HOST: str
-    WEBAPP_PATH: str
-    WEBAPP_PORT: str
-
-    WEBHOOK_PATH: str
-    WEBHOOK_URL: str
-
     class Config:
         env_prefix = 'HACKATHON_'
         env_file = '.env'

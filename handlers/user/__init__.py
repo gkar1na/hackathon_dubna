@@ -10,7 +10,7 @@ async def setup(dp: Dispatcher):
     await dp.bot.set_my_commands(
         [
             BotCommand('start', 'restart'),
-            BotCommand('help', 'make help')
+            BotCommand('help', 'info')
         ]
     )
     dp.register_message_handler(bot_start, CommandStart())
