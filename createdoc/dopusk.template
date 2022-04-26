@@ -1,0 +1,95 @@
+%!TEX TS-program = xelatex
+
+\nofiles
+\documentclass[a4paper,12pt]{article}
+\usepackage[margin=1cm]{geometry}
+
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\setmainfont{Times New Roman}
+
+
+\usepackage{mathtools}
+\usepackage[output-decimal-marker={,}]{siunitx}
+\sisetup{output-exponent-marker=\ensuremath{\mathrm{E}}}
+\usepackage{microtype}
+\usepackage{textcomp}
+\usepackage{multirow}
+\usepackage[normalem]{ulem}
+\usepackage{enumitem}
+\setlist[enumerate]{label*=\arabic*.}
+
+\newcommand{\VAR}[1]{}
+\newcommand{\BLOCK}[1]{}
+
+\begin{document}
+\thispagestyle{empty}
+\rightline{\VAR{isotope_header}}
+\centerline{Протокол \textnumero\ \underline{\VAR{protocol_number}} от \underline{\VAR{protocol_date}}}
+\bigskip
+\centerline{Определения неоднородности флюенса ионов $\textsuperscript{\VAR{atomic_number}}\text{\VAR{element_name}}$}
+\centerline{с энергией \VAR{energy} МэВ/N на испытательном стенде \VAR{test_stand}}
+\bigskip
+\begin{enumerate}
+    \item Цель: Оценка соответствия неоднородности флюенса ионов требованиям заказчика испытаний.
+    \item Время и место определения неоднородности флюенса ионов:\\
+    проводилась в период с \VAR{begin_date} по \VAR{end_date} в ЛЯР ОИЯИ.
+    \item Условия определения неоднородности флюенса ионов:
+    \begin{itemize}[label={-}]
+        \item температура окружающей среды: \VAR{temperature} °С;
+        \item атмосферное давление: \VAR{pressure} мм рт.ст.;
+        \item  относительная влажность воздуха: \VAR{humidity} \%;
+    \end{itemize}
+    \item Средства определения неоднородности флюенса ионов:
+    \begin{itemize}[label={-}]
+        \item испытательный стенд: \VAR{test_stand};
+        \item трековые мембраны (лавсановая плёнка);
+        \item установка для травления лавсановой плёнки;
+        \item растровый электронный микроскоп ТM-3000 (Hitachi, Япония);
+        \item система оцифровки видеосигнала <<GALLERY-512>>.
+    \end{itemize}
+    \item Методика определения неоднородности флюенса ионов.
+    \begin{enumerate}
+        \item Проводилась в соответствии с <<Методикой измерений флюенса тяжелых заряженных частиц с помощью трековых мембран на основе лавсановой пленки>> ЦДКТ1.027.012-2015.
+    \end{enumerate}
+    \item Результаты определения неоднородности флюенса ионов $\textsuperscript{\VAR{atomic_number}}\text{\VAR{element_name}}$ представлены в таблице 1:\\
+
+{\centering
+$ N = \text{\VAR{N}}\text{ с}^{-1}$ \qquad\qquad $\Phi = \text{\VAR{Phi}}\text{ частиц*см}^{-2}$
+\par}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        ТД1                       & ТД2                       & ТД3                       & ТД4                       & ТД5                       \\ \hline
+        \multirow{2}{*}{\VAR{TD1}} & \multirow{2}{*}{\VAR{TD2}} & \multirow{2}{*}{\VAR{TD3}} & \multirow{2}{*}{\VAR{TD4}} & \multirow{2}{*}{\VAR{TD5}} \\
+                                  &                           &                           &                           &                           \\ \hline
+        ТД6                       & ТД7                       & ТД8                       & ТД9                       & Среднее зн.               \\ \hline
+        \multirow{2}{*}{\VAR{TD6}} & \multirow{2}{*}{\VAR{TD7}} & \multirow{2}{*}{\VAR{TD8}} & \multirow{2}{*}{\VAR{TD9}} & \multirow{2}{*}{\VAR{average}} \\
+                                  &                           &                           &                           &                           \\ \hline
+    \end{tabular}
+\end{table}
+
+\qquad\qquad Коэффициент: \qquad $K_{\text{расчетный}}=\text{\VAR{K}}\pm\text{\VAR{K_error}}$
+
+\qquad\qquad Неоднородность флюенса ионов составила: \underline{ \text{\VAR{fluence_uncertainty}} }\%
+
+    \item Принято решение о \VAR{continue_sout}{продолжении работ на ионе \VAR{ion_name}} / \VAR{calibrate_sout}{повторной настройке луча}\\
+    в \VAR{continue_time}
+\end{enumerate}
+\bigskip
+  \begin{minipage}{.4\textwidth}\centering
+    Ответственный за проведение испытаний в испытательную смену от ООО"НПП"Детектор"\\
+    \bigskip
+    \hrulefill\ (\qquad\qquad\qquad\qquad)
+  \end{minipage}
+  \begin{minipage}{.2\textwidth}
+    \hfill
+  \end{minipage}
+  \begin{minipage}{.4\textwidth}\centering
+    Ответственный за проверку от ЛЯР ОИЯИ\\
+    \bigskip
+    \hrulefill\ (\qquad\qquad\qquad\qquad)
+  \end{minipage}
+
+\end{document}

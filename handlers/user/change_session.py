@@ -13,12 +13,6 @@ class DataInput(StatesGroup):
 
 
 async def change_session(callback: CallbackQuery):
-    buttons = [
-
-    ]
-    markup = InlineKeyboardMarkup()
-    for row in create_keyboard_layout(buttons, [0]):
-        markup.row(*row)
     try:
         # await callback.bot.edit_message_text(
         #     text=callback.message.text + '\nВыбрано "Изменить сеанс"',
@@ -30,12 +24,7 @@ async def change_session(callback: CallbackQuery):
     except Exception as e:
         pass
 
-    await callback.bot.send_message(
-        chat_id=callback.from_user.id,
-        text='Введите номер сеанса:',
-        reply_markup=markup
-    )
-    await DataInput.input_session_number.set()
+    await choice_change_data(callback)
 
 
 async def input_session_number(msg: types.Message, state: FSMContext):
@@ -43,15 +32,16 @@ async def input_session_number(msg: types.Message, state: FSMContext):
 
     try:
         await state.set_data({'session_number': int(msg.text)})
-        await msg.answer(f'Перезапуск /start\nВведен номер сессии: {session_number}')
-        await state.reset_state()
-        await choice_change_data(msg, state)
+        await msg.answer(f'Введен номер сессии: {session_number}')
+        #await state.reset_state()
+        
 
     except Exception as e:
+        print(e)
         await msg.answer('Неверные данные. Попробуйте ещё раз.')
 
 
-async def choice_change_data(msg: types.Message, state: FSMContext):
+async def choice_change_data(callback: CallbackQuery):
     buttons = [
         InlineKeyboardButton(
             text='ТД1-9',
@@ -60,30 +50,14 @@ async def choice_change_data(msg: types.Message, state: FSMContext):
         InlineKeyboardButton(
             text='ОД1-4',
             callback_data='od1_4'
-        ),
-        InlineKeyboardButton(
-            text='Коэффициент K',
-            callback_data='coefficient_k'
-        ),
-        InlineKeyboardButton(
-            text='Коэффициент +/-',
-            callback_data='coefficient_+-'
-        ),
-        InlineKeyboardButton(
-            text='Коэффициент неоднородности по левой стороне',
-            callback_data='coefficient_left_side'
-        ),
-        InlineKeyboardButton(
-            text='Коэффициент неоднородности по правой стороне',
-            callback_data='coefficient_right_side'
         )
     ]
     markup = InlineKeyboardMarkup()
-    for row in create_keyboard_layout(buttons, [2, 2, 1, 1]):
+    for row in create_keyboard_layout(buttons, [1,1]):
         markup.row(*row)
 
-    await msg.bot.send_message(
-        chat_id=msg.from_user.id,
+    await callback.message.bot.send_message(
+        chat_id=callback['from'].id,
         text='Выберите параметр, который хотите изменить:',
         reply_markup=markup
     )

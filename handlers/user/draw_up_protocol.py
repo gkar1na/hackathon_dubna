@@ -15,7 +15,7 @@ async def draw_up_protocol(callback: CallbackQuery):
             callback_data='monitoring_protocol'
         ),
         InlineKeyboardButton(
-            text='Сброс',
+            text='В начало',
             callback_data='start'
         )
     ]
@@ -35,6 +35,6 @@ async def draw_up_protocol(callback: CallbackQuery):
 
     await callback.bot.send_message(
         chat_id=callback.from_user.id,
-        text='#TODO draw up a protocol',
+        text='Выберите тип протокола:',
         reply_markup=markup
     )

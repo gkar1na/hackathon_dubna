@@ -11,6 +11,12 @@ class Settings(BaseSettings):
     REDIS: dict = dict()
     TG_TOKEN: Optional[str]
     ADMINS: list = []
+    SPREADSHEET_ID: Optional[str]
+    SERVICE_ACCOUNT_EMAIL: Optional[str]
+    GOOGLE_API_KEY: Optional[str]
+    GOOGLE_APP_NAME: Optional[str]
+    SERVICE_CREDS: Optional[str]
+
 
     class Config:
         env_prefix = 'HACKATHON_'

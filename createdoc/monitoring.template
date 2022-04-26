@@ -1,0 +1,94 @@
+%!TEX TS-program = xelatex
+
+\nofiles
+\documentclass[a4paper,12pt]{article}
+\usepackage[landscape,margin=1cm]{geometry}
+
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\setmainfont{Times New Roman}
+
+
+\usepackage{mathtools}
+\usepackage[output-decimal-marker={,}]{siunitx}
+\sisetup{output-exponent-marker=\ensuremath{\mathrm{E}}}
+\usepackage{microtype}
+\usepackage{textcomp}
+\usepackage{multirow}
+\usepackage{array,tabularx}
+\usepackage[normalem]{ulem}
+\usepackage{enumitem}
+\setlist[enumerate]{label*=\arabic*.}
+
+\newcommand{\VAR}[1]{}
+\newcommand{\BLOCK}[1]{}
+
+\begin{document}
+\thispagestyle{empty}
+\centerline{\Large\textbf{Протокол мониторинга характеристик потока ионов сеанса}}
+\rightline{\VAR{isotope_header}}
+\rightline{\textbf{Сеанc \textnumero \VAR{seans}}}
+\textbf{1. Общие сведения о сеансе}
+
+Испытательный ионный комплекс : \VAR{test_stand}
+\begin{table}[h!]
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    \multirow{2}{*}{\textbf{Название организации}} & \multirow{2}{*}{\textbf{Шифр или наименование работы}} & \multirow{2}{*}{\textbf{Облучаемое изделие}} & \multirow{2}{*}{\textbf{Время начала облучения}} & \multirow{2}{*}{\textbf{Длительность}} \\
+                                                   &                                                        &                                              &                                                  &                                        \\ \hline
+    \multirow{2}{*}{\VAR{organization}}                         & \multirow{2}{*}{\VAR{cipher}}                               & \multirow{2}{*}{\VAR{irradiated_item}}   & \multirow{2}{*}{\VAR{begin_date}}              & \multirow{2}{*}{\VAR{duration}}               \\
+                                                   &                                                        &                                              &                                                  &                                        \\ \hline
+    \end{tabular}
+  \end{table}
+
+\textbf{2. Условия эксперимента: в среде вакуум}
+\begin{table}[h!]
+  \begin{tabular}{|c|c|c|c|}
+  \hline
+  \multirow{2}{*}{\textbf{Угол}} & \multirow{2}{*}{\textbf{Температура,°C}} & \multirow{2}{*}{\textbf{Материал дегрейдера}} & \multirow{2}{*}{\textbf{Толщина, мкм}} \\
+                                 &                                          &                                               &                                        \\ \hline
+  \VAR{angle}                    & \VAR{temperature}                       & \VAR{degrader_material}                        & \VAR{thickness}                        \\ \hline
+  \end{tabular}
+  \end{table}
+
+\textbf{3.Характеристики потока ионов:}
+\begin{table}[h!]
+  \begin{tabular}{lccc}
+    \multicolumn{4}{l}{Характеристики иона:}                                                                                                                                                                                                         \\ \hline
+    \multicolumn{1}{|c|}{\textbf{Тип иона}} & \multicolumn{1}{c|}{\textbf{Энергия Е на поверхности, МэВ/н}} & \multicolumn{1}{c|}{\textbf{Пробег, R {[}Si{]}, мкм}} & \multicolumn{1}{c|}{\textbf{Линейные потери энергии ЛПЭ, МэВ×см2/мг {[}Si{]}}} \\ \hline
+    \multicolumn{1}{|c|}{$\text{\VAR{element_name}}^{\VAR{atomic_number}}$}  & \multicolumn{1}{c|}{\VAR{E}±\VAR{E_error}}&\multicolumn{1}{c|}{\VAR{R}±\VAR{R_error}}& \multicolumn{1}{c|}{\VAR{energy_loss}±\VAR{energy_loss_error}}                 \\ \hline
+    \end{tabular}
+  \end{table}
+
+  \begin{table}[h!]
+    \begin{tabular}{clcccclrlrlcll}
+    \multicolumn{6}{l}{Данные по пропорциональным счетчикам:}                                                                                                  &                   & \multicolumn{4}{r}{\qquad Расчетный коэффициент К =}                             & \VAR{K_theoretical}  & \multicolumn{1}{c}{±} & \multicolumn{1}{c}\VAR{K_error} \\ \cline{1-7}
+    \multicolumn{2}{|c|}{\textbf{1}} & \multicolumn{1}{c|}{\textbf{2}} & \multicolumn{1}{c|}{\textbf{3}} & \multicolumn{1}{c|}{\textbf{4}} & \multicolumn{2}{c|}{Среднее значение} & \multicolumn{1}{l}{\qquad}     &      & \multicolumn{2}{r}{(протокол допуска №} & \VAR{protocol_number}& \multicolumn{2}{l}{)}                            \\ \cline{1-7}
+    \multicolumn{2}{|c|}{\VAR{proportional_1}}&\multicolumn{1}{c|}{\VAR{proportional_2}}&\multicolumn{1}{c|}{\VAR{proportional_3}}&\multicolumn{1}{c|}{\VAR{proportional_4}}&\multicolumn{2}{c|}{\VAR{proportional_average}}         & \multicolumn{4}{r}{\qquad Фактический коэффициент К =}                             & \VAR{K_measured}  &                       &                          \\ \cline{1-7}
+    \end{tabular}
+    \end{table}
+
+    \begin{table}[h!]
+      \begin{tabular}{clcccccccl|clcl|}
+      \multicolumn{14}{l}{Данные по трековым мембранам из лавсановой пленки:} \\ \hline
+      \multicolumn{2}{|c|}{\textbf{Детектор 1}} & \multicolumn{1}{c|}{\textbf{Детектор 2}} & \multicolumn{1}{c|}{\textbf{Детектор 3}} & \multicolumn{1}{c|}{\textbf{Детектор 4}} & \multicolumn{1}{c|}{\textbf{Детектор 5}} & \multicolumn{1}{c|}{\textbf{Детектор 6}} & \multicolumn{1}{c|}{\textbf{Детектор 7}} & \multicolumn{1}{c|}{\textbf{Детектор 8}} & \multicolumn{1}{c|}{\textbf{Детектор 9}} & \multicolumn{4}{c|}{Неоднородность, \%}\\ \hline
+      \multicolumn{2}{|c|}{\VAR{detector_1}}    & \multicolumn{1}{c|}{\VAR{detector_2}}    & \multicolumn{1}{c|}{\VAR{detector_3}}    & \multicolumn{1}{c|}{\VAR{detector_4}}    & \multicolumn{1}{c|}{\VAR{detector_5}}    & \multicolumn{1}{c|}{\VAR{detector_6}}    & \multicolumn{1}{c|}{\VAR{detector_7}}          & \multicolumn{1}{c|}{\VAR{detector_8}}          &   \multicolumn{1}{c|}{\VAR{detector_9}}   & \multicolumn{4}{c|}{\VAR{heterogenity}}     \\ \hline
+      \end{tabular}
+      \end{table}
+
+\bigskip
+  \begin{minipage}{.4\textwidth}\centering
+    Ответственный за проведение испытаний в испытательную смену от ООО"НПП"Детектор"\\
+    \bigskip
+    \hrulefill\ (\qquad\qquad\qquad\qquad)
+  \end{minipage}
+  \begin{minipage}{.15\textwidth}
+    \hfill
+  \end{minipage}
+  \begin{minipage}{.4\textwidth}\centering
+    Ответственный за проверку от ЛЯР ОИЯИ\\
+    \bigskip
+    \hrulefill\ (\qquad\qquad\qquad\qquad)
+  \end{minipage}
+
+\end{document}

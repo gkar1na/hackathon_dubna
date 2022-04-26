@@ -12,6 +12,8 @@ from .add_session import add_session, session_data
 from .monitoring_protocol import monitoring_protocol
 from .change_session import change_session, input_session_number, choice_change_data
 from .input_session_data import *
+from .access_protocol import create_new_access_protocol
+from .monitoring_protocol import create_new_monitoring_protocol
 
 
 class DataInput(StatesGroup):
@@ -19,10 +21,8 @@ class DataInput(StatesGroup):
     input_session_number = State()
     input_td = State()
     input_od = State()
-    input_k = State()
-    input_plus_minus = State()
-    input_left = State()
-    input_right = State()
+    input_access_protocol = State()
+    input_monitoring_protocol = State()
 
 
 async def setup(dp: Dispatcher):
@@ -87,37 +87,12 @@ async def setup(dp: Dispatcher):
         callback=change_od,
         state=DataInput.input_od
     )
-
-    dp.register_callback_query_handler(
-        input_k,
-        lambda query: query.data == 'coefficient_k'
+    
+    dp.register_message_handler(
+        callback=create_new_access_protocol,
+        state=DataInput.input_access_protocol
     )
     dp.register_message_handler(
-        callback=change_k,
-        state=DataInput.input_k
-    )
-
-    dp.register_callback_query_handler(
-        input_plus_minus,
-        lambda query: query.data == 'coefficient_+-'
-    )
-    dp.register_message_handler(
-        callback=change_plus_minus,
-        state=DataInput.input_plus_minus
-    )
-    dp.register_callback_query_handler(
-        input_left,
-        lambda query: query.data == 'coefficient_left_side'
-    )
-    dp.register_message_handler(
-        callback=change_left,
-        state=DataInput.input_left
-    )
-    dp.register_callback_query_handler(
-        input_right,
-        lambda query: query.data == 'coefficient_right_side'
-    )
-    dp.register_message_handler(
-        callback=change_right,
-        state=DataInput.input_right
+        callback=create_new_monitoring_protocol,
+        state=DataInput.input_monitoring_protocol
     )
