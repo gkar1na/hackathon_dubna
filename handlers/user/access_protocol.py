@@ -7,6 +7,7 @@ from aiogram.types.input_file import InputFile
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher import FSMContext
 from data.config import settings
+import os
 
 class DataInput(StatesGroup):
     session_data = State()
@@ -61,11 +62,15 @@ async def create_new_access_protocol(msg: types.Message, state: FSMContext):
         sessionId = int(msg.text)
         path = doc_utils.CreateAdmissionReport(settings.SPREADSHEET_ID,
                                                sessionId)
-    
         await msg.bot.send_document(
             chat_id=msg.from_user.id,
             document=InputFile(f"{path}"),
-            caption="Ваш документ:",
+            caption="Ваш документ:"
+        )
+        os.remove(path)
+        await msg.bot.send_message(
+            chat_id=msg.from_user.id,
+            text="Выберите действие:",
             reply_markup=await create_markup()
         )
         await state.reset_state()
